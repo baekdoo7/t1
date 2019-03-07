@@ -19,8 +19,14 @@
     한글 테스트 <br /><br />
     <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Ad-MediumRectangle-300x250.jpg" />
     <br />
+    <div id='jstest'></div>
     <script>
-        document.write("<br /><h3>이것은 스크립트로 생성된 텍스트....</h3>");
+        //document.write("<br /><h3>이것은 스크립트로 생성된 텍스트....</h3>");
+        //console.log(12345); 
+        var tmp = document.getElementById("jstest");
+        tmp.innerHTML = "<br /><h3>이것은 스크립트로 생성된 텍스트....</h3>";
+        console.time();
+        console.log(console.timeEnd());
     </script>
     
 </body>

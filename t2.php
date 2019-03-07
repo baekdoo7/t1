@@ -93,15 +93,53 @@
 		var y = document.getElementById("displayed");
 		loadHTML(url, processByDOM, responseHTML, y);
 	}
+        
+    function findPrevious(elm) {
+        do {
+            elm = elm.previousSibling;
+            } while (elm && elm.nodeType != 1);
+        return elm;
+    }
+    
+    function swapDiv(elm) {
+        var previous = findPrevious(elm);
+        if (previous) {
+            elm.parentNode.insertBefore(elm, previous);
+        }
+    }
+
+    function insertScript($script){
+        var st  = document.createElement('script');
+        st.type = 'text/javascript';
+        if($script.src){
+            st.src = $script.src;    
+        }else{
+            st.textContent = $script.innerText;
+        }
+        
+        $script.parentNode.insertBefore(st,$script);
+        //$script.parentNode.removeChild($script);
+        
+    }
     
     function startLoading(){
         loadWholePage("http://www.test01.com/t1/sam.php");
+    }
+
+    function test(){
+        var obj = document.querySelector("#displayed script");
+        //insertScript(obj);
+        //this.document.write("안녕하세요!!!!!");
+        if(obj){
+            eval(obj.innerHTML);    
+        }
+        
     }
     
 </script>
 </head>
 <body>
-    <p><button onclick="startLoading();">페이지 가져오기</button></p>
+    <p><button onclick="startLoading();">페이지 가져오기</button><button onclick="test();">테스트</button></p>
     <hr />
     <div id="storage" style="display:none;"> </div>
     <div id="displayed"> </div>

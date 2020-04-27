@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>B1.html</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="adop_fp.js"></script>
+
+    </head>
+    <body>
+        <h3 id="FPID" style="display: none"></h3>
+        <script>
+           
+            $( document ).ready(function() {
+                 var sid2;
+                //핑거 프린트를 이용한 식별자 생성
+                Fingerprint2.get(function (components) {
+                    var murmur = Fingerprint2.x64hash128(components.map(function (pair) {
+                        return pair.value
+                    }).join(), 31);
+                    sid2 = murmur;
+                    //alert(sid2);
+                    $("#FPID").html("Your FP ID : " + murmur + "<br /> <h2>저장값 : 1 을 남김</h2>");
+                    $("#FPID").show();
+                });
+
+                setTimeout(function(){
+                    $.ajax({ url: "b4.php", 
+                            data : { sid : sid2, val:"1" }, 
+                            method: "GET", 
+                            dataType: "text" 
+                           })
+                        .done(function(ret01){
+                        //alert(ret01);
+                     });
+                    
+                },100);
+                
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>쿠키값확인</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="HTML5 website template">
+  <meta name="keywords" content="global, template, html, sass, jquery">
+  <meta name="author" content="baekdoo">
+  <link rel="stylesheet" href="">
+    <script type="application/javascript">
+        var setCookie = function(name, value, exp) {
+                            var date = new Date();
+                            date.setTime(date.getTime() + exp*24*60*60*1000);
+                            document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+                        };
+        var getCookie = function(name) {
+                            var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+                            return value? value[2] : null;
+                        };
+        var deleteCookie = function(name) {
+                            setCookie(name,'','-1');
+                        };
+        var imageSet = function(){
+                            var t1 = getCookie('id');
+                            var obj = document.getElementById(img);
+                            img.src = t1 + '.png';            
+        }
+
+//deleteCookie('name');
+    </script>
+</head>
+<body>
+    <h1>쿠키값 확인</h1>
+    <img src="" id="img" />
+    <br />
+    <button onclick="deleteCookie('id');imageSet();">쿠키삭제</button>
+    <script type="application/javascript">
+        imageSet();
+    </script>
+</body>
+</html>

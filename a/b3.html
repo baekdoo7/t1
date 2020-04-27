@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>B1.html</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="adop_fp.js"></script>
+        <script type="application/javascript">
+            function del_cookie(sid2){
+                    $.ajax({ url: "b4.php", 
+                            data : { sid : sid2, val:"4" }, 
+                            method: "GET", 
+                            dataType: "text" 
+                           })
+                        .done(function(ret01){
+                            //alert(ret01);
+                            $("#FPID").html("Your FP ID : " + sid2 + "<br /> <h1>저장값 확인</h1><h2>저장값 : "+ ret01 +" 을 남김</h2><img src='"+ ret01 +".png' id='img' /><div><button onclick=\"del_cookie('"+ sid2 +"')\">저장값 삭제</button></div> ");
+                            $("#FPID").show();
+                     });
+            }
+        </script>
+
+    </head>
+    <body>
+        <h3 id="FPID" style="display: none"></h3>
+        <script>
+           
+            $( document ).ready(function() {
+                 var sid2;
+                //핑거 프린트를 이용한 식별자 생성
+                Fingerprint2.get(function (components) {
+                    var murmur = Fingerprint2.x64hash128(components.map(function (pair) {
+                        return pair.value
+                    }).join(), 31);
+                    sid2 = murmur;
+                    //alert(sid2);
+                });
+
+                setTimeout(function(){
+                    $.ajax({ url: "b4.php", 
+                            data : { sid : sid2, val:"3" }, 
+                            method: "GET", 
+                            dataType: "text" 
+                           })
+                        .done(function(ret01){
+                            //alert(ret01);
+                            $("#FPID").html("Your FP ID : " + sid2 + "<br /> <h1>저장값 확인</h1><h2>저장값 : "+ ret01 +" 을 남김</h2><img src='"+ ret01 +".png' id='img' /><div><button onclick=\"del_cookie('"+ sid2 +"')\">저장값 삭제</button></div> ");
+                            $("#FPID").show();
+                     });
+                    
+                },100);
+                
+            });
+        </script>
+    </body>
+</html>

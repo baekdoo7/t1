@@ -389,7 +389,7 @@ ul[data-menu-style="vertical"] li a:hover {
         <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
         <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
               <li>
-                <a href="javascript:location.href='https://one.adop.cc/tiger.php';">
+                <a href="javascript:login();">
                     <i class="fa fa-home" aria-hidden="true"></i>
                     <span class="title">Home</span>
                 </a>
@@ -453,52 +453,12 @@ ul[data-menu-style="vertical"] li a:hover {
                 </ul>
             </li>
             <li>
-                <a class="" href="javascript:;">
-                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                    <span class="title">Atom</span>
-
-                </a>
-                <ul>
-                    <li>
-                        <a href="#">아톰메뉴 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">아톰메뉴 2					
-                        </a>
-                        <ul>
-                            <li><a href="#">광고주정보</a></li>
-                            <li><a href="#">정산</a></li>
-                            <li><a href="#">보고서</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">아톰메뉴 3						
-                        </a>
-                        <ul>
-                            <li><a href="#">캠페인</a></li>
-                            <li><a href="#">타케팅</a></li>
-                            <li><a href="#">소재</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Sub Item Four
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
+                <a href="javascript:logout();">
                     <i class="fa fa-heart" aria-hidden="true"></i>
-                    <span class="title">Products</span>
+                    <span class="title">Logout</span>
                 </a>
             </li>
-            <li class="last ">
-                <a href="javascript:;">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <span class="title">Contact Us</span>
-                </a>
-            </li>
+    
         </ul>
     </nav>
     

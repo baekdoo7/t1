@@ -185,36 +185,76 @@ function startLoading2(num){
     var ifr = document.getElementById("mainFrame");
     if(ifr){
         if(num == 1){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/compass/dashboard");
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/compass/dashboard");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 2){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/compass/advertise/advertiseList#first");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/compass/advertise/advertiseList#first");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 3){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/compass/inventory/inventoryList#areaList");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/compass/inventory/inventoryList#areaList");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 4){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/compass/report/dailyReport");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/compass/report/dailyReport");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 5){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/insight/dashboard");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/insight/dashboard");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 6){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/insight/ncpi_report/dashboard");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/insight/ncpi_report/dashboard");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 7){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/insight/contents_analytics/seo/rss_monitoring");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/insight/contents_analytics/seo/rss_monitoring");
+             }
+          else{
+                login();
+             }    
         }
         else if(num == 8){
-          makeFrame();    
-          loadWholePage("https://one.adop.cc/insight/cs/qna");            
+          if(logined()){
+                makeFrame();    
+                loadWholePage("https://one.adop.cc/insight/cs/notice");
+             }
+          else{
+                login();
+             }    
         }
         //loadWholePage("http://www.test01.com/t1/sam.php");
         //loadWholePage("https://go.adop.cc/login");
@@ -228,6 +268,119 @@ function startLoading2(num){
     }
 }
 
+//로그인 되었을때 처리
+function afterlogin(){
+    var ifr = document.getElementById("mainFrame");
+    var htmlcode = "";
+        htmlcode += "<head>";
+        htmlcode += "<scr"+"ipt src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></scr"+"ipt>";
+        htmlcode += "<style>";
+        htmlcode += "span { display: inline-block; position: absolute;}";
+        htmlcode += "</style>";
+        htmlcode += "</head>";        
+        htmlcode += "<body>";
+        htmlcode += "<div id='container'> <span id='random'><img src='https://s3.ap-northeast-2.amazonaws.com/adop-common/Image/adserver_img.jpg'></span> </div>";
+        htmlcode += "<scr"+"ipt>";
+        htmlcode += "function moveDiv() {";
+        htmlcode += "var $span = $('#random');";
+        htmlcode += "$span.fadeOut(1000, function() {";
+        htmlcode += " var maxLeft = $(window).width() - $span.width();";
+        htmlcode += " var maxTop = $(window).height() - $span.height();";
+        htmlcode += " var leftPos = Math.floor(Math.random() * (maxLeft + 1));";
+        htmlcode += " var topPos = Math.floor(Math.random() * (maxTop + 1));";
+        htmlcode += " $span.css({ left: leftPos, top: topPos }).fadeIn(1000);";
+        htmlcode += "});";
+        htmlcode += "};";
+        htmlcode += "moveDiv();";
+        htmlcode += "setInterval(moveDiv, 1000);";
+        htmlcode += "</scr"+"ipt>";
+        htmlcode += "</body>";
+    if(ifr){
+        var ifrd = ifr.contentWindow.document; 
+        ifrd.open(); 
+        ifrd.write(htmlcode); 
+        ifrd.close();
+    }
+    
+}
+function writeCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+
+var getCookie = function(name) {
+  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+  return value? value[2] : null;
+};
+function logined(){
+    if(getCookie('UID')){
+        return true;
+    }else{
+        return false;
+    }
+}
+//로그아웃
+function logout(){    
+     var ifr = document.getElementById("mainFrame");
+     var htmlcode = "<iframe src='https://one.adop.cc/compass/auth/logout' frameborder='0' width='0' height='0' ></iframe>";
+    
+    if(ifr){
+        var ifrd = ifr.contentWindow.document; 
+        ifrd.open(); 
+        ifrd.write(htmlcode); 
+        ifrd.close();
+    }
+    //loadWholePage("https://one.adop.cc/insight/authenticate/logout"); 
+    logoutChange();
+}
+//로그아웃 수시 체크
+function logoutChange(){
+    setTimeout(function(){
+        if(!logined()){
+            loadWholePage("https://one.adop.cc/login");  
+            loginChange();             
+           }
+        else{
+            logoutChange();       
+           }
+        
+    },500);
+}
+//로그인 수시 체크
+function loginChange(){
+    
+    setTimeout(function(){
+            if(logined()){
+                afterlogin();
+            }
+            else{
+                loginChange();    
+            }
+    },1000);
+}
+//로그인 체크및 로그인 페이지 이동
+function chkLogin(){
+    if(!logined()){
+        
+    }
+}
+//로그인
+function login(){
+          makeFrame();    
+          if(logined()){
+            afterlogin();
+          }else{
+            loadWholePage("https://one.adop.cc/login");  
+            loginChange();  
+          }
+          
+}
 //테스트용
 function test(){
     var obj = document.querySelector("#displayed script");
